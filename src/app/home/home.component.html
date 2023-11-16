@@ -1,0 +1,55 @@
+<app-header></app-header>
+<main class="container mt-5 pt-5">
+    <div class="container text-center mt-4">
+        <form [formGroup]="searchForm">
+        <div class="row">
+            <div class="col-md-4">
+                <input class="form-control mt-2 mb-2" type="text" formControlName="title"  placeholder="Search by title" /> 
+            </div>
+            <div class="col-md-4">
+                <input class="form-control mt-2 mb-2" type="text" formControlName="author" placeholder="Search by author" /> 
+            </div>
+            <div class="col-md-4">
+                <input class="form-control mt-2 mb-2" type="number" formControlName="isbn"  placeholder="Search by ISBN" /> 
+            </div>
+          
+            <div class="col-md-3">
+                <input class="form-control mt-2 mb-2" type="text" formControlName="publisher" placeholder="Search by publisher" /> 
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-warning" (click)="search()">search</button>
+            </div>
+        </div>
+        </form>
+        <table class="table table-striped table-bordered table-sm row-border hover" id="datatableexample">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Author</th>
+              <th>Publisher</th>
+              <th>Published</th>
+              <th>genre</th>
+              </tr>
+          </thead>
+          <tbody>
+              
+                  <tr *ngFor="let el of dataSource; let i = index">
+                      <td>{{el.id}}</td>
+                      <td><a routerLink="/book-detail/{{el.id}}">{{el.title}}</a></td>
+                      <td>{{el.email}}</td>
+                      <td>{{el.author}}</td>
+                      <td>{{el.publisher}}</td>
+                      <td>{{el.published}}</td>
+                      <td>{{el.genre}}</td>
+                  </tr>
+          </tbody>
+        </table>
+        <app-pagination
+            [currentPage]="currentPage"
+            [totalPages]="totalPages"
+            (pageChange)="loadData($event)"
+        ></app-pagination>
+        </div>
+  </main>
