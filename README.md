@@ -2,6 +2,14 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.6.
 
+node version --   v20.9.0
+npm version   --  10.1.0
+
+after cloning from github  (https://github.com/jaspreet55/book-angular.git)
+ run  "composer update" command for installing packages
+
+then run ng serve to run the application
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
