@@ -1,21 +1,93 @@
 <app-header></app-header>
-<div class="container mt-5">
-    <div class="box-detail">
-   
-      
+<div class="container mt-5 pt-5">
+    <div class="team-single">
         <div class="row">
-            <div class="card p-0">
-                <div class="card-header">
-                    <p>Book Detail</p>
+            <div class="col-lg-4 col-md-5 xs-margin-30px-bottom">
+                <div class="team-single-img">
+                    <img src="{{image}}" alt="no-image" width="350px">
                 </div>
-                
-                <p>Book Title : {{bookdetail?.title}}</p>
-                <p>Book author : {{bookdetail?.author}}</p>
-                <p>Book description : {{bookdetail?.description}}</p>
-                <p>Book isbn : {{bookdetail?.isbn}}</p>
-                <p>Book Genre : {{bookdetail?.genre}}</p>
+            </div>
+
+            <div class="col-lg-8 col-md-7">
+                <div class="team-single-text padding-50px-left sm-no-padding-left">
+                    <h4 class="font-size38 sm-font-size32 xs-font-size30">{{bookdetail?.title}}</h4>
+                    <p class="no-margin-bottom">{{bookdetail?.description}}</p>
+                    <div class="contact-info-section margin-40px-tb">
+                        <ul class="list-style9 no-margin">
+                            <li>
+
+                                <div class="row">
+                                    <div class="col-md-5 col-5">
+                                        <i class="fas fa-graduation-cap text-orange"></i>
+                                        <strong class="margin-10px-left text-orange">Author:</strong>
+                                    </div>
+                                    <div class="col-md-7 col-7">
+                                        <p>{{bookdetail?.author}}</p>
+                                    </div>
+                                </div>
+
+                            </li>
+                            <li>
+
+                                <div class="row">
+                                    <div class="col-md-5 col-5">
+                                        <i class="far fa-gem text-yellow"></i>
+                                        <strong class="margin-10px-left text-yellow">Publisher</strong>
+                                    </div>
+                                    <div class="col-md-7 col-7">
+                                        <p>{{bookdetail?.publisher}}</p>
+                                    </div>
+                                </div>
+
+                            </li>
+                            <li>
+
+                                <div class="row">
+                                    <div class="col-md-5 col-5">
+                                        <i class="far fa-file text-lightred"></i>
+                                        <strong class="margin-10px-left text-lightred">Published on:</strong>
+                                    </div>
+                                    <div class="col-md-7 col-7">
+                                        <p>{{bookdetail?.published | date}}</p>
+                                    </div>
+                                </div>
+
+                            </li>
+                            <li>
+
+                                <div class="row">
+                                    <div class="col-md-5 col-5">
+                                        <i class="fas fa-map-marker-alt text-green"></i>
+                                        <strong class="margin-10px-left text-green">Genre:</strong>
+                                    </div>
+                                    <div class="col-md-7 col-7">
+                                        <p>{{bookdetail?.genre}}</p>
+                                    </div>
+                                </div>
+
+                            </li>
+                            <li>
+
+                                <div class="row">
+                                    <div class="col-md-5 col-5">
+                                        <i class="fas fa-mobile-alt text-purple"></i>
+                                        <strong class="margin-10px-left xs-margin-four-left text-purple">Isbn:</strong>
+                                    </div>
+                                    <div class="col-md-7 col-7">
+                                        <p>{{bookdetail?.isbn}}</p>
+                                    </div>
+                                </div>
+
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-md-12">
+
             </div>
         </div>
     </div>
-    
 </div>

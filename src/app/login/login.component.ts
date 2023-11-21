@@ -32,21 +32,19 @@ export class LoginComponent {
       return;
     }
     if(this.loginForm.valid) {
-      this.authenticationService.login(this.f['email'].value, this.f['password'].value).then((res: any) => {
-        if (res.code == 200) {
-          //Complete load require to manage the Local storage
+      this.authenticationService.login(this.f['email'].value, this.f['password'].value).subscribe((res :any) => {
+        if(res.code == 200){
+          localStorage.setItem('currentUser', JSON.stringify(res.data.user));
+          localStorage.setItem('apiToken', res.data.apiToken);
           this.router.navigate(['/home']);
         }
-      }, (err) => {
-      
-        if (err.status == 500) {
-          localStorage.clear();
-          this.router.navigate(['/login']);
-        } else {
-          this.error = err.errors;
-        }
-        // this.errors = error.error.message;
-      });
+        if (res.type == 500) {
+              localStorage.clear();
+              this.router.navigate(['/login']);
+          } else {
+            this.error = res.errors;
+          }
+      })
     }
   }
 }

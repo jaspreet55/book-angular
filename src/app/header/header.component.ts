@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit { 
-  
+  public currentUser!: User;
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,
@@ -15,7 +15,13 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getUserDetail();
   }
+  getUserDetail(){
+   this.currentUser =  this.authenticationService.getCurrentUser();
+   console.log(this.currentUser.name)
+  }
+
   logout() {
     this.authenticationService.logout();
     this.router.navigate(['/login']);

@@ -12,6 +12,8 @@ export class HomeComponent implements OnInit {
   searchForm: FormGroup;
   currentPage = 1;
   totalPages!: number;
+  sortProperty: string = 'id';
+  sortOrder = 1;
   constructor(
     private bookService: BookService,
     private fb: FormBuilder,
@@ -66,4 +68,29 @@ export class HomeComponent implements OnInit {
       }
     });
   }
+  sortBy(property: string) {
+    console.log('step1',property);
+    this.sortOrder = property === this.sortProperty ? (this.sortOrder * -1) : 1;
+    console.log('step2',this.sortOrder);
+    this.sortProperty = property;
+    this.dataSource = [...this.dataSource.sort((a: any, b: any) => {
+        // sort comparison function
+        let result = 0;
+        if (a[property] < b[property]) {
+            result = -1;
+        }
+        if (a[property] > b[property]) {
+            result = 1;
+        }
+        return result * this.sortOrder;
+    })];
+}
+
+sortIcon(property: string) {
+    if (property === this.sortProperty) {
+        return this.sortOrder === 1 ? '↑' : '↓';
+    }
+    return '';
+}
+
 }

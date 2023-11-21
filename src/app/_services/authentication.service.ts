@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
 import { environment } from '../../environments/environment';
 export class User {
     name!: string;
@@ -14,54 +13,44 @@ export class User {
 export class AuthenticationService {
     parsedJson: any; 
     jsonData: any; 
-    private currentUserSubject!:  BehaviorSubject<User>;
-    public currentUser!: Observable<User>;
+    public currentUser!: User;
     constructor(private http: HttpClient) {
         
     }
     ngOnInit(): void {
+        this.getCurrentUser();
+    }
+    getCurrentUser(){
         if("currentUser" in localStorage  && localStorage.getItem('currentUser') != ''){
             this.jsonData = localStorage.getItem('currentUser');
             this.parsedJson = JSON.parse(this.jsonData);
-
-            this.currentUserSubject = new BehaviorSubject<User>(this.parsedJson);
-            this.currentUser = this.currentUserSubject.asObservable();
+            this.currentUser = this.parsedJson;
         }
+        return this.currentUser;
     }
-    public get currentUserValue() {
-        if("currentUser" in localStorage  && localStorage.getItem('currentUser') != ''){
-            return this.currentUserSubject.value;
+   
+
+    isLoggedIn() {
+        if("apiToken" in localStorage  && localStorage.getItem('apiToken') != ''){
+            return true;
         }else{
-            return null;
+            return false;
         }
     }
 
     login(email: string, password: string) {
-        return new Promise((resolve, reject) => {
 
-            this.http.post(`${environment.apiUrl}/login`, { email: email, password: password }).subscribe((user: any) => {
-                console.log(user);
-                if (user && user.data) {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(user.data.user));
-                    localStorage.setItem('apiToken', user.data.apiToken);
-                    console.log(user.data.user);
-                    this.currentUserSubject = new BehaviorSubject<User>(user.data);
-                    this.currentUser = this.currentUserSubject.asObservable();
-                    // this.currentUserSubject.next(user.data.user)
-                }
-                resolve(user);
-            }, err => {
-                console.log(err);
-                reject(err);
-            });
-        });
+        return  this.http.post(`${environment.apiUrl}/login`, { email: email, password: password });
+       
+    }
+    GetToken(){
+        return  localStorage.getItem('apiToken') || '';
     }
 
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
-        localStorage.clear();
-        // this.currentUserSubject.next(new User);      
+        localStorage.clear();  
+        this.currentUser ={email:'',name:''};   
     }
 }
